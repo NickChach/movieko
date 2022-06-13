@@ -7,7 +7,7 @@
         <title>Movie K.O.</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="index.css">
         <script src="utils.js" defer></script>
         <script src="index.js" defer></script>
@@ -21,7 +21,7 @@
                 <div>
                     <label for="movieSearch1">Movie 1</label>
                     <input type="text" name="movieSearch1" id="movieSearch1" placeholder="Search for a movie">
-                    <ul id="movieList1"></ul>
+                    <ul class="autocomplete" id="movieList1"></ul>
                 </div>
                 <div>
                     <label for="movieSearch2">Movie 2</label>
@@ -30,6 +30,6 @@
                 </div>
             </form>
         </main>
-        <footer></footer>
+        <footer><div id="render"></div></footer>
     </body>
 </html>
