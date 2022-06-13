@@ -4,23 +4,28 @@ const movieSearch2 = document.querySelector("#movieSearch2");
 const fetchData = async (movieSearch) => {
     const response = await fetch(`http://www.omdbapi.com/?apikey=3995f4a6&s=${movieSearch}`);
     const parsedResponse = await response.json();
-    console.log(parsedResponse);
+    const data = await parsedResponse.Search;
+
+    if (parsedResponse.Error) {
+        console.log(parsedResponse.Error);
+        return [];
+    }
+
+    return data;
 }
 
-const debounce = (callback) => {
-    let timeoutID;
-    return (...args) => {
-        if (timeoutID) {
-            clearTimeout(timeoutID);
-        }
-        timeoutID = setTimeout(() => {
-            callback.apply(null, args);
-        }, 1000)
-    };
-};
+const onSearch = async event => {
+    const movies = await fetchData(event.target.value);
+    for (let movie of movies) {
+        const li = document.createElement("li");
+        li.innerHTML = `
+        <img src="${movie.Poster}" alt="Poster of ${movie.Title} film." />
+        <span>${movie.Title} (${movie.Year})</span>
+        `;
 
-const onSearch = event => {
-    fetchData(event.target.value);
+        document.querySelector("#movieList1").appendChild(li);
+    }
+    console.log(movies);
 };
 
 movieSearch1.addEventListener("input", debounce(onSearch));
