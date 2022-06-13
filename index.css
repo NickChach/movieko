@@ -1,0 +1,42 @@
+:root {
+    --white: #F5F5F5;
+    --blue: #2364A9;
+    --yellow: #FFDA22;
+    --green: #679436;
+    --red: #DE1A1A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--white);
+}
+
+h1 {
+    width: fit-content;
+    margin: auto;
+    font-family: 'Press Start 2P', cursive;
+    color: var(--blue);
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+label, input, ul {
+    width: fit-content;
+    display: block;
+    margin: 0 auto;
+}
+
+ul {
+    list-style: none;
+}
