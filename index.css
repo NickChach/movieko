@@ -19,11 +19,32 @@ body {
     background-color: var(--white);
 }
 
+p, label, input {
+    font-family: 'Play', sans-serif;
+}
+
+header {
+    margin: 1em auto 5em auto;
+}
+
 h1 {
     width: fit-content;
-    margin: auto;
+    margin: 0 auto 0.5em auto;
     font-family: 'Press Start 2P', cursive;
+    font-size: 3em;
     color: var(--blue);
+}
+
+header p {
+    width: fit-content;
+    margin: auto;
+    color: var(--blue);
+    font-size: 1.5em;
+    letter-spacing: 0.05em;
+}
+
+em {
+    letter-spacing: 0.075em;
 }
 
 form {
@@ -35,6 +56,17 @@ label, input, ul {
     width: fit-content;
     display: block;
     margin: 0 auto;
+}
+
+label {
+    font-size: 1.25em;
+    font-weight: bold;
+    color: var(--blue);
+    margin: 0 auto 0.25em auto;
+}
+
+input {
+    font-size: 1em;
 }
 
 ul {
