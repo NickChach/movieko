@@ -40,3 +40,8 @@ label, input, ul {
 ul {
     list-style: none;
 }
+
+#results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
