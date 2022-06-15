@@ -19,7 +19,7 @@ body {
     background-color: var(--white);
 }
 
-p, label, input {
+p, label, input, article, li {
     font-family: 'Play', sans-serif;
 }
 
@@ -50,12 +50,13 @@ em {
 form {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin: 0 0.5em auto 0.5em;
+    grid-column-gap: 1em;
+    column-gap: 1em;
 }
 
 label, input, ul {
-    width: fit-content;
     display: block;
-    margin: 0 auto;
 }
 
 label {
@@ -73,7 +74,71 @@ ul {
     list-style: none;
 }
 
+li {
+    display: flex;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    background-color: #E0E0E0;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+li img {
+    height: 6em;
+    width: auto;
+}
+
+li span {
+    color: var(--blue);
+    align-self: center;
+    margin-left: 0.5em;
+}
+
 #results {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin: 1em 0.5em auto 0.5em;
+    grid-column-gap: 1em;
+    column-gap: 1em;
+}
+
+#results article {
+    color: var(--blue);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-column-gap: 1em;
+    column-gap: 1em;
+}
+
+#results img {
+    height: 12em;
+    width: auto;
+}
+
+#results h2, #results h3 {
+    margin-bottom: 0.5em;
+}
+
+#results h2 {
+    font-size: 2em;
+}
+
+#results h3 {
+    font-size: 1.5em;
+}
+
+.grid p {
+    width: 50ch;
+}
+
+.card {
+    margin: 0.5em 0;
+    padding: 1em;
+    background-color: #E0E0E0;
+    font-size: 1.25em;
 }

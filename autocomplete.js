@@ -9,7 +9,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     root.appendChild(movieSearchBar);
 
     const fetchData = async (movieSearch) => {
-        const response = await fetch(`http://www.omdbapi.com/?apikey=3995f4a6&type=movie&s=${movieSearch}`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=3995f4a6&type=movie&s=${movieSearch}`);
         const parsedResponse = await response.json();
         const data = await parsedResponse.Search;
     
@@ -22,7 +22,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     }
 
     const onMovieSelect = async movie => {
-        const response = await fetch(`http://www.omdbapi.com/?apikey=3995f4a6&i=${movie.imdbID}`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=3995f4a6&i=${movie.imdbID}`);
         const parsedResponse = await response.json();
         console.log(parsedResponse);
     
@@ -32,24 +32,21 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     const renderMovie = movieDetail => {
         return `
         <article>
-            <figure>
-                <p>
-                    <img src="${movieDetail.Poster}" alt"Poster of ${movieDetail.Title} film." />
-                </p>
-            </figure>
+            <div class="grid">
+                <img src="${movieDetail.Poster}" alt="Poster of ${movieDetail.Title} film." />
+                <section>
+                    <h2>${movieDetail.Title} (${movieDetail.Year})</h2>
+                    <h3>${movieDetail.Genre}</h3>
+                    <p>
+                        ${movieDetail.Plot}
+                    </p>
+                </section>
+            </div>
             <section>
-                <h2>${movieDetail.Title} (${movieDetail.Year})</h2>
-                <h3>${movieDetail.Genre}</h3>
-                <p>
-                    ${movieDetail.Plot}
-                </p>
-            </section>
-            <section>
-                <p>Awards: ${movieDetail.Awards}</p>
-                <p>Box Office: ${movieDetail.BoxOffice}</p>
-                <p>Metascore: ${movieDetail.Metascore}</p>
-                <p>IMDB Rating: ${movieDetail.imdbRating}</p>
-                <p>IMDB Votes: ${movieDetail.imdbVotes}</p>
+                <p class="card">Awards: ${movieDetail.Awards}</p>
+                <p class="card">Box Office: ${movieDetail.BoxOffice}</p>
+                <p class="card">IMDb Rating: ${movieDetail.imdbRating}</p>
+                <p class="card">Metascore: ${movieDetail.Metascore}</p>
             </section>
         </article>
         `;
