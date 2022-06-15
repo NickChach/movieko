@@ -1,4 +1,7 @@
-function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLabel, movieListID, renderElement) {
+let movie1;
+let movie2; 
+
+function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLabel, movieListID, renderElement, side) {
     const root = document.getElementById(rootElement);
     const movieSearchBar = document.createElement("div");
     movieSearchBar.innerHTML = `
@@ -24,9 +27,19 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     const onMovieSelect = async movie => {
         const response = await fetch(`https://www.omdbapi.com/?apikey=3995f4a6&i=${movie.imdbID}`);
         const parsedResponse = await response.json();
-        console.log(parsedResponse);
     
         document.getElementById(renderElement).innerHTML = renderMovie(parsedResponse);
+
+        if (side === "left") {
+            movie1 = parsedResponse;
+        }
+        else {
+            movie2 = parsedResponse;
+        }
+
+        if (movie1 && movie2) {
+            compareMovies(movie1, movie2);
+        }
     };
 
     const renderMovie = movieDetail => {
@@ -43,10 +56,10 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
                 </section>
             </div>
             <section>
-                <p class="card">Awards: ${movieDetail.Awards}</p>
-                <p class="card">Box Office: ${movieDetail.BoxOffice}</p>
-                <p class="card">IMDb Rating: ${movieDetail.imdbRating}</p>
-                <p class="card">Metascore: ${movieDetail.Metascore}</p>
+                <p class="card awards ${side}">Awards: ${movieDetail.Awards}</p>
+                <p class="card box-office ${side}">Box Office: ${movieDetail.BoxOffice}</p>
+                <p class="card imdb-rating ${side}">IMDb Rating: ${movieDetail.imdbRating}</p>
+                <p class="card metascore ${side}">Metascore: ${movieDetail.Metascore}</p>
             </section>
         </article>
         `;
