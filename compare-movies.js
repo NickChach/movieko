@@ -121,4 +121,46 @@ function compareMovies(movie1, movie2) {
         leftElements[0].classList.add("winner");
         rightElements[0].classList.add("looser");
     }
+
+    //compare awards
+    const movie1Awards = movie1.Awards.split(" ").reduce((previous, word) => {
+        const number = parseInt(word);
+
+        if (Number.isNaN(number)) {
+            return previous;
+        }
+        else {
+            return previous + number;
+        }
+    } , 0)
+
+    const movie2Awards = movie2.Awards.split(" ").reduce((previous, word) => {
+        const number = parseInt(word);
+
+        if (Number.isNaN(number)) {
+            return previous;
+        }
+        else {
+            return previous + number;
+        }
+    } , 0)
+
+    if (movie1Awards === movie2Awards) {
+        const elements = document.getElementsByClassName("card awards");
+        for (let element of elements) {
+            element.classList.add("tie");
+        }
+    }
+    else if (movie1Awards < movie2Awards) {
+        const leftElements = document.getElementsByClassName("card awards left");
+        const rightElements = document.getElementsByClassName("card awards right");
+        leftElements[0].classList.add("looser");
+        rightElements[0].classList.add("winner");
+    }
+    else {
+        const leftElements = document.getElementsByClassName("card awards left");
+        const rightElements = document.getElementsByClassName("card awards right");
+        leftElements[0].classList.add("winner");
+        rightElements[0].classList.add("looser");
+    }
 }
