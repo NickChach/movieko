@@ -80,4 +80,45 @@ function compareMovies(movie1, movie2) {
         leftElements[0].classList.add("winner");
         rightElements[0].classList.add("looser");
     }
+
+    //compare box office
+    const movie1BoxOffice = parseInt(movie1.BoxOffice.replace(/\$/g, "").replace(/,/g, ""));
+    const movie2BoxOffice = parseInt(movie2.BoxOffice.replace(/\$/g, "").replace(/,/g, ""));
+
+    if (Number.isNaN(movie1BoxOffice) && Number.isNaN(movie2BoxOffice)) {
+        const elements = document.getElementsByClassName("card box-office");
+        for (let element of elements) {
+            element.classList.add("tie");
+        }
+    }
+    else if (Number.isNaN(movie1BoxOffice)) {
+        const leftElements = document.getElementsByClassName("card box-office left");
+        const rightElements = document.getElementsByClassName("card box-office right");
+        leftElements[0].classList.add("looser");
+        rightElements[0].classList.add("winner");
+    }
+    else if (Number.isNaN(movie2BoxOffice)) {
+        const leftElements = document.getElementsByClassName("card box-office left");
+        const rightElements = document.getElementsByClassName("card box-office right");
+        leftElements[0].classList.add("winner");
+        rightElements[0].classList.add("looser");
+    }
+    else if (movie1BoxOffice === movie2BoxOffice) {
+        const elements = document.getElementsByClassName("card box-office");
+        for (let element of elements) {
+            element.classList.add("tie");
+        }
+    }
+    else if (movie1BoxOffice < movie2BoxOffice) {
+        const leftElements = document.getElementsByClassName("card box-office left");
+        const rightElements = document.getElementsByClassName("card box-office right");
+        leftElements[0].classList.add("looser");
+        rightElements[0].classList.add("winner");
+    }
+    else {
+        const leftElements = document.getElementsByClassName("card box-office left");
+        const rightElements = document.getElementsByClassName("card box-office right");
+        leftElements[0].classList.add("winner");
+        rightElements[0].classList.add("looser");
+    }
 }
