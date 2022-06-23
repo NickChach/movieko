@@ -5,9 +5,12 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     const root = document.getElementById(rootElement);
     const movieSearchBar = document.createElement("div");
     movieSearchBar.innerHTML = `
+    <form action="">
     <label for="${movieSearchBarElement}">${movieSearchBarLabel}</label>
     <input type="text" name="${movieSearchBarElement}" id="${movieSearchBarElement}" size="50" placeholder="Search for a movie">
     <ul id="${movieListID}"></ul>
+    </form>
+    <div class="results" id="${renderElement}"></div>
     `;
     root.appendChild(movieSearchBar);
 
