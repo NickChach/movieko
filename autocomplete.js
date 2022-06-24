@@ -7,7 +7,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     movieSearchBar.innerHTML = `
     <form action="">
     <label for="${movieSearchBarElement}">${movieSearchBarLabel}</label>
-    <input type="text" name="${movieSearchBarElement}" id="${movieSearchBarElement}" size="50" placeholder="Search for a movie">
+    <input type="text" name="${movieSearchBarElement}" id="${movieSearchBarElement}" size="50" placeholder="Search for a movie" autocomplete="off">
     <ul id="${movieListID}"></ul>
     </form>
     <div class="results" id="${renderElement}"></div>
@@ -56,29 +56,44 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     };
 
     const populateMovieList = (movies) => {
-        for (let movie of movies) {
+        if (movies.length === 0) {
             const li = document.createElement("li");
-            li.innerHTML = `
-            <img src="${movie.Poster}" alt="" />
-            <span>${movie.Title} (${movie.Year})</span>
-            `;
+            li.innerHTML = "<span>Oops! No movie found! Please try again.</span>";
             document.querySelector(`#${movieListID}`).appendChild(li);
-    
+
             li.addEventListener("click", () => {
                 document.getElementById(movieListID).innerHTML = "";
-                document.getElementById(movieSearchBarElement).value = `${movie.Title} (${movie.Year})`;
-                onMovieSelect(movie);
             })
+        }
+        else {
+            for (let movie of movies) {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                <img src="${movie.Poster}" alt="" />
+                <span>${movie.Title} (${movie.Year})</span>
+                `;
+                document.querySelector(`#${movieListID}`).appendChild(li);
+        
+                li.addEventListener("click", () => {
+                    document.getElementById(movieListID).innerHTML = "";
+                    document.getElementById(movieSearchBarElement).value = `${movie.Title} (${movie.Year})`;
+                    onMovieSelect(movie);
+                })
+            }
         }
     }
 
     const onSearch = async event => {
+        document.getElementById(renderElement).innerHTML = "";
         const movies = await fetchMovieSearchData(event.target.value);
         document.querySelector(`#${movieListID}`).innerHTML = "";
         const movieList = populateMovieList(movies);
     };
 
     movieSearchBar.addEventListener("input", debounce(onSearch));
+    movieSearchBar.addEventListener("submit", event => {
+        event.preventDefault();
+    });
 
     document.addEventListener("click", event => {
         if(!document.getElementById(movieListID).contains(event.target)) {
