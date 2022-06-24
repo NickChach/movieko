@@ -1,4 +1,6 @@
 function compareMovies(movie1, movie2) {
+    removePreviousColours();
+
     //compare IMDb ratings
     const movie1IMDbRating = parseFloat(movie1.imdbRating);
     const movie2IMDbRating = parseFloat(movie2.imdbRating);

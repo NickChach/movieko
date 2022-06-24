@@ -37,6 +37,13 @@ function getTotalAwardsNumber(movie) {
     return movieAwards;
 }
 
+function removePreviousColours() {
+    const elements = document.getElementsByClassName("card");
+    for (let element of elements) {
+        element.classList.remove("tie", "winner", "looser");
+    }
+}
+
 function compareMovieNumbers(movie1Number, movie2Number, numberContext) {
     if (Number.isNaN(movie1Number) && Number.isNaN(movie2Number)) {
         const elements = document.getElementsByClassName(`card ${numberContext}`);
