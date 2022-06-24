@@ -14,19 +14,6 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     `;
     root.appendChild(movieSearchBar);
 
-    const fetchData = async (movieSearch) => {
-        const response = await fetch(`https://www.omdbapi.com/?apikey=d498fb83&type=movie&s=${movieSearch}`);
-        const parsedResponse = await response.json();
-        const data = await parsedResponse.Search;
-    
-        if (parsedResponse.Error) {
-            console.log(parsedResponse.Error);
-            return [];
-        }
-    
-        return data;
-    }
-
     const onMovieSelect = async movie => {
         const response = await fetch(`https://www.omdbapi.com/?apikey=d498fb83&i=${movie.imdbID}`);
         const parsedResponse = await response.json();
@@ -45,24 +32,24 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
         }
     };
 
-    const renderMovie = movieDetail => {
+    const renderMovie = movieDetails => {
         return `
         <article>
             <div class="grid">
-                <img src="${movieDetail.Poster}" alt="Poster of ${movieDetail.Title} film." />
+                <img src="${movieDetails.Poster}" alt="Poster of ${movieDetails.Title} film." />
                 <section>
-                    <h2>${movieDetail.Title} (${movieDetail.Year})</h2>
-                    <h3>${movieDetail.Genre}</h3>
+                    <h2>${movieDetails.Title} (${movieDetails.Year})</h2>
+                    <h3>${movieDetails.Genre}</h3>
                     <p>
-                        ${movieDetail.Plot}
+                        ${movieDetails.Plot}
                     </p>
                 </section>
             </div>
             <section>
-                <p class="card awards ${side}">Awards: ${movieDetail.Awards}</p>
-                <p class="card box-office ${side}">Box Office: ${movieDetail.BoxOffice}</p>
-                <p class="card imdb-rating ${side}">IMDb Rating: ${movieDetail.imdbRating}</p>
-                <p class="card metascore ${side}">Metascore: ${movieDetail.Metascore}</p>
+                <p class="card awards ${side}">Awards: ${movieDetails.Awards}</p>
+                <p class="card box-office ${side}">Box Office: ${movieDetails.BoxOffice}</p>
+                <p class="card imdb-rating ${side}">IMDb Rating: ${movieDetails.imdbRating}</p>
+                <p class="card metascore ${side}">Metascore: ${movieDetails.Metascore}</p>
             </section>
         </article>
         `;
@@ -86,7 +73,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     }
 
     const onSearch = async event => {
-        const movies = await fetchData(event.target.value);
+        const movies = await fetchMovieSearchData(event.target.value);
         document.querySelector(`#${movieListID}`).innerHTML = "";
         const movieList = await populateMovieList(movies);
     };
