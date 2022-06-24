@@ -22,6 +22,36 @@ function debounce(callback, delay = 500) {
     };
 }
 
+function renderMovie(movieDetails, side) {
+    return `
+    <article>
+        <div class="grid">
+            <img src="${movieDetails.Poster}" alt="Poster of ${movieDetails.Title} film." />
+            <section>
+                <h2>${movieDetails.Title} (${movieDetails.Year})</h2>
+                <h3>${movieDetails.Genre}</h3>
+                <p>
+                    ${movieDetails.Plot}
+                </p>
+            </section>
+        </div>
+        <section>
+            <p class="card awards ${side}">Awards: ${movieDetails.Awards}</p>
+            <p class="card box-office ${side}">Box Office: ${movieDetails.BoxOffice}</p>
+            <p class="card imdb-rating ${side}">IMDb Rating: ${movieDetails.imdbRating}</p>
+            <p class="card metascore ${side}">Metascore: ${movieDetails.Metascore}</p>
+        </section>
+    </article>
+    `;
+}
+
+function removePreviousColours() {
+    const elements = document.getElementsByClassName("card");
+    for (let element of elements) {
+        element.classList.remove("tie", "winner", "looser");
+    }
+}
+
 function getTotalAwardsNumber(movie) {
     const movieAwards = movie.Awards.split(" ").reduce((previous, word) => {
         const number = parseInt(word);
@@ -35,13 +65,6 @@ function getTotalAwardsNumber(movie) {
     } , 0)
 
     return movieAwards;
-}
-
-function removePreviousColours() {
-    const elements = document.getElementsByClassName("card");
-    for (let element of elements) {
-        element.classList.remove("tie", "winner", "looser");
-    }
 }
 
 function compareMovieNumbers(movie1Number, movie2Number, numberContext) {

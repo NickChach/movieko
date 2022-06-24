@@ -1,7 +1,7 @@
 let movie1;
 let movie2; 
 
-function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLabel, movieListID, renderElement, side) {
+function manageAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLabel, movieListID, renderElement, side) {
     const root = document.getElementById(rootElement);
     const movieSearchBar = document.createElement("div");
     movieSearchBar.innerHTML = `
@@ -18,7 +18,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
         const response = await fetch(`https://www.omdbapi.com/?apikey=d498fb83&i=${movie.imdbID}`);
         const parsedResponse = await response.json();
     
-        document.getElementById(renderElement).innerHTML = renderMovie(parsedResponse);
+        document.getElementById(renderElement).innerHTML = renderMovie(parsedResponse, side);
 
         if (side === "left") {
             movie1 = parsedResponse;
@@ -30,29 +30,6 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
         if (movie1 && movie2) {
             compareMovies(movie1, movie2);
         }
-    };
-
-    const renderMovie = movieDetails => {
-        return `
-        <article>
-            <div class="grid">
-                <img src="${movieDetails.Poster}" alt="Poster of ${movieDetails.Title} film." />
-                <section>
-                    <h2>${movieDetails.Title} (${movieDetails.Year})</h2>
-                    <h3>${movieDetails.Genre}</h3>
-                    <p>
-                        ${movieDetails.Plot}
-                    </p>
-                </section>
-            </div>
-            <section>
-                <p class="card awards ${side}">Awards: ${movieDetails.Awards}</p>
-                <p class="card box-office ${side}">Box Office: ${movieDetails.BoxOffice}</p>
-                <p class="card imdb-rating ${side}">IMDb Rating: ${movieDetails.imdbRating}</p>
-                <p class="card metascore ${side}">Metascore: ${movieDetails.Metascore}</p>
-            </section>
-        </article>
-        `;
     };
 
     const populateMovieList = (movies) => {
