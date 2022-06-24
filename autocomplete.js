@@ -75,7 +75,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     const onSearch = async event => {
         const movies = await fetchMovieSearchData(event.target.value);
         document.querySelector(`#${movieListID}`).innerHTML = "";
-        const movieList = await populateMovieList(movies);
+        const movieList = populateMovieList(movies);
     };
 
     movieSearchBar.addEventListener("input", debounce(onSearch));
@@ -85,4 +85,4 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
             document.getElementById(movieListID).innerHTML = "";
         }
     });
-};
+}
