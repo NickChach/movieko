@@ -15,7 +15,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     root.appendChild(movieSearchBar);
 
     const fetchData = async (movieSearch) => {
-        const response = await fetch(`https://www.omdbapi.com/?apikey=3995f4a6&type=movie&s=${movieSearch}`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=d498fb83&type=movie&s=${movieSearch}`);
         const parsedResponse = await response.json();
         const data = await parsedResponse.Search;
     
@@ -28,7 +28,7 @@ function createAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     }
 
     const onMovieSelect = async movie => {
-        const response = await fetch(`https://www.omdbapi.com/?apikey=3995f4a6&i=${movie.imdbID}`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=d498fb83&i=${movie.imdbID}`);
         const parsedResponse = await response.json();
     
         document.getElementById(renderElement).innerHTML = renderMovie(parsedResponse);
