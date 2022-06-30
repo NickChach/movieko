@@ -1,13 +1,18 @@
 const fetchMovieSearchData = async movieSearch => {
-    const response = await fetch(`https://www.omdbapi.com/?apikey=d498fb83&type=movie&s=${movieSearch}`);
-    const parsedResponse = await response.json();
-    const data = await parsedResponse.Search;
+    try {
+        const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&type=movie&s=${movieSearch}`);
+        const parsedResponse = await response.json();
+        const data = await parsedResponse.Search;
 
-    if (parsedResponse.Error) {
-        return [];
+        if (parsedResponse.Error) {
+            return [];
+        }
+
+        return data;
     }
-
-    return data;
+    catch(error) {
+        return ["network error"];
+    }
 };
 
 function debounce(callback, delay = 500) {

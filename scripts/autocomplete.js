@@ -15,7 +15,7 @@ function manageAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     root.appendChild(movieSearchBar);
 
     const onMovieSelect = async movie => {
-        const response = await fetch(`https://www.omdbapi.com/?apikey=d498fb83&i=${movie.imdbID}`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`);
         const parsedResponse = await response.json();
     
         document.getElementById(renderElement).innerHTML = renderMovie(parsedResponse, side);
@@ -33,7 +33,16 @@ function manageAutocomplete(rootElement, movieSearchBarElement, movieSearchBarLa
     };
 
     const populateMovieList = (movies) => {
-        if (movies.length === 0) {
+        if (movies[0] === "network error") {
+            const li = document.createElement("li");
+            li.innerHTML = "<span>Oops! An unexpected network error occurred! Please check your internet connection.</span>";
+            document.querySelector(`#${movieListID}`).appendChild(li);
+
+            li.addEventListener("click", () => {
+                document.getElementById(movieListID).innerHTML = "";
+            })
+        }
+        else if (movies.length === 0) {
             const li = document.createElement("li");
             li.innerHTML = "<span>Oops! No movie found! Please try again.</span>";
             document.querySelector(`#${movieListID}`).appendChild(li);
