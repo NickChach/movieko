@@ -1,4 +1,4 @@
-const staticCache = "movieko-v.1.0";
+const staticCache = "movieko-v.1.1";
 
 const staticFiles = [
     "./",
